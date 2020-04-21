@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoneyCounter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        *{
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        h1{
+            color: #dfe6e9;
+            text-align: center;
+            margin: 50px;
+            font-size: 50PX;
+        }
+        html{
+            max-width: calc(100vw - ((100vw - 100%)));
+            background: black;
+        }
+        p{
+            margin-right: 5px;
+            color: #dfe6e9;
+            font-size: 30px;
+        }
+        form div{
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin: 20px;
+        }
+        input{ 
+                -moz-appearance: textfield;
+                border-radius: 20px;
+                text-align: center;
+                height: 30px;
+                background: #dfe6e9;
+                outline:none;
+                border: none;
+                font-size: 30px;
+            }
+        input::-webkit-inner-spin-button { 
+                display: none;
+            }
+        .ironMoney{
+            border: 2px solid #dfe6e9;
+            border-radius: 50px;
+            border-width: 0 2px 0 0;
+            margin-left: 50px;
+        }
+        .paperMoney{
+            border: 2px solid #dfe6e9;
+            border-radius: 50px;
+            border-width: 0 2px 0 0;
+
+        }
+        #equalValue{
+            background: #0984e3;
+            color: #dfe6e9;
+            margin-left: 20px;
+        }    
+        section{
+            width: 100%;
+            display: flex;
+        }
+        .deduction{
+            margin: 50px 0 0 40px;
+        }
+        .deduction p {
+            margin-right: 20px;
+        }
+        #deductionEqual{
+            background: #0984e3;
+            color: #dfe6e9;
+        }
+        .forHover:hover {
+            background: #2d3436;
+            border-radius: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <H1>ScoreS</H1>
+    <section>
+        <div class="paperMoney">
+            <form action="">
+                <div class="forHover">    
+                    <p>Разменный Фонд</p><input type="text" value="6000" maxlength="7" class="actionInput" data-multiply="1" placeholder="0">
+                </div>
+                <div class="forHover">    
+                    <p>5000 рублей * </p><input type="text" placeholder="0" maxlength="7" class="actionInput" data-multiply="5000">
+                </div>
+                <div class="forHover">    
+                    <p>2000 рублей * </p><input type="text" placeholder="0" maxlength="7" class="actionInput" data-multiply="2000">
+                </div>
+                <div class="forHover">    
+                    <p>1000 рублей * </p><input type="text" placeholder="0" maxlength="7" class="actionInput" data-multiply="1000">
+                </div>
+                <div class="forHover">    
+                    <p>500 рублей * </p><input type="text" placeholder="0" maxlength="7" class="actionInput" data-multiply="500">
+                </div>
+                <div class="forHover">    
+                    <p>200 рублей * </p><input type="text" placeholder="0" maxlength="7" class="actionInput" data-multiply="200">
+                </div>
+                <div class="forHover">    
+                    <p>100 рублей * </p><input type="text" placeholder="0" maxlength="7" class="actionInput" data-multiply="100">
+                </div>
+                <div class="forHover">    
+                    <p>50 рублей * </p><input type="text" placeholder="0" maxlength="7" class="actionInput" data-multiply="50">
+                </div>
+            </form>
+        </div>
+        <div class="ironMoney">    
+            <form action="">   
+                <div class="forHover">    
+                    <p>10 рублей * </p><input type="text" placeholder="0" maxlength="7" class="actionInput" data-multiply="10">
+                </div>
+                <div class="forHover">    
+                    <p>5 рублей * </p><input type="text" placeholder="0" maxlength="7" class="actionInput" data-multiply="5">
+                </div>
+                <div class="forHover">    
+                    <p>2 рублей * </p><input type="text" placeholder="0" maxlength="7" class="actionInput" data-multiply="2">
+                </div>
+                <div class="forHover">    
+                    <p>1 рублей * </p><input type="text" placeholder="0" maxlength="7" class="actionInput" data-multiply="1">
+                </div>
+                <div class="forHover">    
+                    <p>0.5 копеек * </p><input type="text" placeholder="0" maxlength="7" class="actionInput" data-multiply="0.5">
+                </div>
+                <div class="forHover">    
+                    <p>0.1 копеек * </p><input type="text" placeholder="0" maxlength="7" class="actionInput" data-multiply="0.1">
+                </div>
+                <div class="forHover">    
+                    <p>Сумма</p><input type="text" placeholder="0" value="6000.00" readonly id="equalValue">
+                </div>
+            </form>
+        </div>
+    </section>
+    <section class="sectionTwo">
+        <div class="deduction">
+            <form action="">
+                <div class="forHover">    
+                    <p>Сумма вычета</p><input id="deductionValue" type="text" placeholder="0" maxlength="10">
+                </div>
+                <div class="forHover">    
+                    <p>Остаток</p><input type="text" placeholder="0" value="0" readonly id="deductionEqual">
+                </div>
+            </form>  
+        </div>
+    </section>   
+    <script>
+        let moneyValues    = document.querySelectorAll('.actionInput'),
+            equalValue     = document.getElementById('equalValue'),
+            deductionValue = document.getElementById('deductionValue'),
+            deductionEqual = document.getElementById('deductionEqual'),
+            sum            = 0;
+
+        function additionAll(){
+
+            this.value = this.value.replace(/[^\d]/g, '');
+
+            sum = 0;
+            for(let y = 0; y < moneyValues.length; y++){
+                      
+                sum +=moneyValues[y].dataset.multiply * moneyValues[y].value;
+                
+            }    
+            equalValue.value = sum;
+            deductionValue.dispatchEvent(new Event("input"))
+        }
+
+        function deduction(){
+
+            this.value = this.value = this.value.replace(/[^\d.,]/g, '').replace(/,/, '.');
+
+            sum = equalValue.value - deductionValue.value;
+            deductionEqual.value = sum.toFixed(2);
+
+        }
+
+        deductionValue.addEventListener("input", deduction);
+
+        for(let x = 0; x < moneyValues.length; x++){
+            moneyValues[x].addEventListener("input", additionAll);
+        }
+    </script>
+</body>
+</html>
